@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TaskFlow - Lista de tareas</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="todo-app">
+        <h1>TaskFlow <img src="images/icon.png"></h1>
+        <div class="row">
+            <input type="text" id="input-box" placeholder="Escribe una tarea...">
+            <button onclick="addTask()">Añadir</button>
+        </div>
+        <ul id="list-container">
+            <!--<li class="checked">Task 1</li>
+            <li>Task 2</li>
+            <li>Task 3</li>-->
+        </ul>
+        <div class="stats">
+    <p>Total: <span id="total-tasks">0</span></p>
+    <p>Completadas: <span id="completed-tasks">0</span></p>
+    <p>Pendientes: <span id="pending-tasks">0</span></p>
+</div>
+<button id="clear-all" class="btn-main" onclick="clearAll()">Eliminar Todo</button>
+    </div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>

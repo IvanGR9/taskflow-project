@@ -21,5 +21,13 @@ Gestor de tareas sencillo y funcional.
 - **Persistencia:** Las tareas se guardan en el navegador (LocalStorage), por lo que no se borran al refrescar la página.
 - **Gestión masiva:** Botón para eliminar todas las tareas de una vez.
 
+## ✅ Pruebas hechas (Testing):
+He comprobado que todo funcione como debe:
+- **Añadir y borrar:** Las tareas se crean y se quitan sin fallos.
+- **Filtros:** Los botones de "Todas", "Pendientes" y "Hechas" filtran bien la lista.
+- **Persistencia:** He cerrado y abierto la web y las tareas siguen ahí.
+- **Móvil:** El diseño se adapta y se ve bien en pantallas pequeñas.
+- **Botón limpiar:** El de "Eliminar todo" borra la lista completa tras confirmar.
+
 ## 🛠️ Tecnologías:
 - HTML, CSS y JavaScript.

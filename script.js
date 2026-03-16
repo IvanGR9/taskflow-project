@@ -7,6 +7,7 @@ const pendingTasks = document.getElementById("pending-tasks");
 
 // Intentamos leer de LocalStorage, si no hay nada, empezamos con un array vacío []
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let currentFilter = 'all';
 
 // EVENTOS DE TECLADO
 inputBox.addEventListener("keypress", function(e){
@@ -14,7 +15,11 @@ inputBox.addEventListener("keypress", function(e){
         addTask();
     }
 });
-
+// FUNCIÓN PARA FILTRAR
+function filterTasks(filter) {
+    currentFilter = filter;
+    renderTasks();
+}
 // AÑADIR TAREA La tarea es un OBJETO
 function addTask(){
     if(inputBox.value === ''){
@@ -37,7 +42,15 @@ function addTask(){
 function renderTasks() {
     listContainer.innerHTML = "";
 
-    tasks.forEach(task => {
+    // Filtramos las tareas según el botón pulsado
+    const filteredTasks = tasks.filter(task => {
+        if (currentFilter === 'pending') return !task.completed;
+        if (currentFilter === 'completed') return task.completed;
+        return true; 
+    });
+
+    // Dibujamos solo las tareas filtradas
+    filteredTasks.forEach(task => {
         let li = document.createElement("li");
         li.innerHTML = task.text;
         
@@ -45,21 +58,21 @@ function renderTasks() {
             li.classList.add("checked");
         }
 
-        // Al hacer clic, cambiamos el estado de completado
+        // Marcar o desmarcar tarea
         li.onclick = () => toggleTask(task.id);
 
-        // Botón de eliminar (la X)
+        // Botón para eliminar
         let span = document.createElement("span");
         span.innerHTML = "\u00d7";
         span.onclick = (e) => {
-            e.stopPropagation(); // Evita que al borrar se marque la tarea como completada
+            e.stopPropagation(); 
             deleteTask(task.id);
         };
 
         li.appendChild(span);
         listContainer.appendChild(li);
     });
-
+    
     updateStats();
 }
 
@@ -80,6 +93,7 @@ function deleteTask(id) {
 function clearAll() {
     if (confirm("¿Estás seguro de que quieres borrar todas las tareas?")) {
         tasks = [];
+        currentFilter = 'all'; // Añade esta línea para que vuelva a la vista general
         saveAndRender();
     }
 }

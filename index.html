@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TaskFlow - Lista de tareas</title>
-<link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TaskFlow - Lista de tareas</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-    <div class="todo-app">
-        <h1>LISTA DE TAREAS <img src="images/icon.png"></h1>
-        <div class="row">
-            <input type="text" id="input-box" placeholder="Escribe una tarea...">
-            <button onclick="addTask()">Añadir</button>
-        </div>
-        <ul id="list-container">
-            </ul>
-        <div class="stats">
-    <p>Total: <span id="total-tasks">0</span></p>
-    <p>Completadas: <span id="completed-tasks">0</span></p>
-    <p>Pendientes: <span id="pending-tasks">0</span></p>
-</div>
-<div class="filters">
-    <button onclick="filterTasks('all')">Todas</button>
-    <button onclick="filterTasks('pending')">Pendientes</button>
-    <button onclick="filterTasks('completed')">Hechas</button>
-</div>
-<button id="clear-all" class="btn-main" onclick="clearAll()">Eliminar Todo</button>
-    </div>
+    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
 
-</div>
-<script src="script.js"></script>
+    <div class="container">
+        <div class="todo-app">
+            <h1>LISTA DE TAREAS <img src="images/icon.png"></h1>
+            
+            <div class="row">
+                <input type="text" id="input-box" placeholder="Escribe una tarea...">
+                <select id="category-select">
+                    <option value="General">General</option>
+                    <option value="Trabajo">Trabajo</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Urgente">Urgente</option>
+                </select>
+                <button onclick="addTask()">Añadir</button>
+            </div>
+
+            <ul id="list-container">
+                </ul>
+
+            <button id="complete-all" class="btn-main" onclick="completeAllTasks()">Marcar todas como hechas</button>
+
+            <div class="stats">
+                <p>Total: <span id="total-tasks">0</span></p>
+                <p>Completadas: <span id="completed-tasks">0</span></p>
+                <p>Pendientes: <span id="pending-tasks">0</span></p>
+            </div>
+
+            <div class="filters">
+                <button onclick="filterTasks('all')">Todas</button>
+                <button onclick="filterTasks('pending')">Pendientes</button>
+                <button onclick="filterTasks('completed')">Hechas</button>
+            </div>
+
+            <button id="clear-all" class="btn-main" onclick="clearAll()">Eliminar Todo</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
-</html> 
+</html>

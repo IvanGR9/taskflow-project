@@ -1,12 +1,32 @@
-# Node.js
+# Dependencias (Nunca se suben porque se instalan con npm install)
 node_modules/
-npm-debug.log
+dist/
+.next/
+out/
 
-# VS Code
+# Seguridad y Variables de Entorno (CRÍTICO)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+server/.env
+
+# Logs y Debugging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Herramientas de Editor
 .vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 
-# Sistema operativo
+# Sistema Operativo
 .DS_Store
 Thumbs.db
-
-server/.env

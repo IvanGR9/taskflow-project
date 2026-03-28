@@ -1,12 +1,13 @@
 require('dotenv').config();
 
-const config = {
-    PORT: process.env.PORT || 3000
-};
-
-// Validación manual que pide el ejercicio
+// Validación manual estricta
 if (!process.env.PORT) {
-    throw new Error('El puerto no está definido en el archivo .env');
+    // Si no hay puerto, lanzamos un error y cerramos el proceso (exit 1)
+    console.error('❌ ERROR: La variable PORT no está definida en el archivo .env');
+    process.exit(1); 
 }
 
-module.exports = config;
+module.exports = {
+    PORT: process.env.PORT,
+    NODE_ENV: process.env.NODE_ENV || 'development'
+};

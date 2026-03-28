@@ -1,33 +1,35 @@
-# Bootcamp Project
-Proyecto de prácticas.
-## Diseño de la app
+# 🚀 TaskFlow: Gestión de Tareas Profesional (Full-Stack)
 
-TaskFlow es una app para llevar tu lista de tareas.  
-La idea es que sea fácil de usar y ver todo claro.
+TaskFlow ha evolucionado. Lo que empezó como una lista de tareas sencilla en el navegador, ahora es una aplicación completa con su propio **servidor (Backend)**. El objetivo es que la gestión de tareas sea robusta, segura y escalable.
 
-- **Cabecera:** donde pone el nombre de la app.  
-- **Formulario:** para escribir una nueva tarea y añadirla.  
-- **Lista de tareas:** aquí ves tus tareas, puedes marcar las que ya hiciste o borrarlas.  
-- **Estadísticas:** te dice cuántas tareas tienes, cuántas completadas y cuántas pendientes.
+## 🏗️ Diseño y Arquitectura de la App
 
-# TaskFlow
+He dividido el proyecto en dos grandes bloques para que el código sea limpio y profesional:
 
-Gestor de tareas sencillo y funcional.
+### 1. El Servidor (Backend - `/server`)
+Es el "cerebro" donde vive la verdad de los datos. 
+- **Estructura por capas:** He separado las rutas (los caminos), los controladores (los que mandan) y los servicios (los que guardan los datos).
+- **Seguridad:** El servidor comprueba que los datos sean correctos (por ejemplo, que el título tenga al menos 3 letras) antes de aceptarlos.
+- **API Real:** Funciona con rutas profesionales como `/api/v1/tasks`.
 
-## Lo que llevo hecho hasta ahora:
-- **Estructura base:** HTML y diseño con CSS.
-- **Lógica de tareas:** Se pueden añadir tareas, marcarlas como completadas y eliminarlas.
-- **Estadísticas:** Panel que cuenta tareas totales, pendientes y completadas en tiempo real.
-- **Persistencia:** Las tareas se guardan en el navegador (LocalStorage), por lo que no se borran al refrescar la página.
-- **Gestión masiva:** Botón para eliminar todas las tareas de una vez.
+### 2. La Web (Frontend - `/client`)
+Es la cara de la app, rediseñada para trabajar en tiempo real con el servidor.
+- **Adiós LocalStorage:** Ya no guardamos nada en el navegador. La web le pregunta todo al servidor.
+- **Gestión de Red:** He añadido pantallas de "Cargando..." y avisos de error por si el servidor se cae o internet falla.
+- **Modularización:** El código está repartido en piezas (módulos) para que sea fácil de mantener.
 
-## ✅ Pruebas hechas (Testing):
-He comprobado que todo funcione como debe:
-- **Añadir y borrar:** Las tareas se crean y se quitan sin fallos.
-- **Filtros:** Los botones de "Todas", "Pendientes" y "Hechas" filtran bien la lista.
-- **Persistencia:** He cerrado y abierto la web y las tareas siguen ahí.
-- **Móvil:** El diseño se adapta y se ve bien en pantallas pequeñas.
-- **Botón limpiar:** El de "Eliminar todo" borra la lista completa tras confirmar.
+## 🛠️ Tecnologías utilizadas
+- **Frontend:** HTML5, CSS3 (con diseño adaptable para móviles) y JavaScript Moderno (ES6+).
+- **Backend:** Node.js y Express.
+- **Pruebas:** Postman (para certificar que la API no falla).
 
-## 🛠️ Tecnologías:
-- HTML, CSS y JavaScript.
+## ✅ Lo que he aprendido en esta fase
+- **Sincronización:** Cómo hacer que la web y el servidor se entiendan sin fallos.
+- **Estados de carga:** Entender que la red no es instantánea y hay que avisar al usuario mientras espera.
+- **Validación defensiva:** Programar el servidor para que no acepte "datos basura".
+- **Limpieza de código:** Usar el principio de "separación de responsabilidades" para que cada archivo haga solo una cosa.
+
+## 🚀 Cómo ponerlo en marcha
+1. Ve a la carpeta `server` y ejecuta `npm run dev` para encender el servidor.
+2. Abre el `index.html` de la carpeta `client` con una extensión tipo "Live Server".
+3. ¡Ya puedes gestionar tus tareas conectadas al servidor!

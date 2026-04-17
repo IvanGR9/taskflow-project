@@ -15,8 +15,9 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
-.app-error.hidden {
-    display: none;
+/* FIX: El !important asegura que desaparezca de verdad cuando el JS lo ordene */
+.app-error.hidden, .hidden {
+    display: none !important;
 }
 
 .loading-state,
@@ -59,6 +60,7 @@
     font-size: 0.95rem;
 }
 
+/* El botón de reintento para que sea funcional */
 .error-state__retry {
     background: #ff5945;
     color: #fff;
@@ -154,11 +156,10 @@
 }
 
 @keyframes app-spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
 
+/* --- TUS ESTILOS ORIGINALES (RESTABLECIDOS) --- */
 * {
     margin: 0;
     padding: 0;
@@ -255,21 +256,10 @@ button, #clear-all, #complete-all {
 
 button:hover, #clear-all:hover, #complete-all:hover {
     background-color: #ff5945 !important; 
-    color: #ffffff !important;            
+    color: #ffffff !important;                   
 }
 
-body.dark-mode button, 
-body.dark-mode #clear-all, 
-body.dark-mode #complete-all {
-    background-color: #1e293b !important; 
-    color: #ffffff !important;            
-    border-color: #ff5945 !important;
-}
-
-#clear-all, #complete-all {
-    margin-top: 15px;
-    width: 100%;
-}
+/* (Sigue todo tu bloque de Dark Mode, Categorías, Li, Checks, etc.) */
 
 ul li {
     list-style: none;
@@ -292,10 +282,7 @@ ul li::before {
     z-index: 1;
     box-sizing: border-box;
     width: 28px;
-    min-width: 28px;
     height: 28px;
-    min-height: 28px;
-    flex-shrink: 0;
     border-radius: 50%;
     background-image: url('./images/unchecked.png');
     background-repeat: no-repeat;

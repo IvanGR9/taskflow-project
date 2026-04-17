@@ -1,6 +1,4 @@
-const API_URL = window.location.hostname === 'localhost' 
-    ? 'http://localhost:3000/api/v1/tasks' 
-    : 'https://tu-backend-en-vercel.vercel.app/api/v1/tasks';
+const API_URL = 'http://localhost:3000/api/v1/tasks';
 
 class ApiError extends Error {
     constructor(status, message) {
@@ -10,28 +8,18 @@ class ApiError extends Error {
     }
 }
 
-function taskUrl(id) {
-    return id != null ? `${API_URL}/${id}` : API_URL;
-}
-
 async function readJson(response) {
     const text = await response.text();
-    if (!text) return null;
+    if (!text) return {}; // Devolvemos objeto vacío para evitar errores de lectura
     try {
         return JSON.parse(text);
     } catch {
-        return null;
+        return {};
     }
 }
 
-/**
- * Punto único de red para toda la app.
- * @param {string} method
- * @param {object|undefined} body
- * @param {string|number|undefined} id
- */
 async function request(method, body, id) {
-    const url = taskUrl(id);
+    const url = id != null ? `${API_URL}/${id}` : API_URL;
     const init = {
         method,
         headers: { 'Content-Type': 'application/json' },
@@ -41,32 +29,28 @@ async function request(method, body, id) {
         init.body = JSON.stringify(body);
     }
 
-    const response = await fetch(url, init);
-    const data = await readJson(response);
+    try {
+        const response = await fetch(url, init);
+        const data = await readJson(response);
 
-    if (!response.ok) {
-        const message = (data && data.error) || response.statusText || `Error HTTP ${response.status}`;
-        throw new ApiError(response.status, message);
+        if (!response.ok) {
+            // Buscamos el mensaje de error en el JSON o usamos el status text
+            const message = data.error || response.statusText || `Error ${response.status}`;
+            throw new ApiError(response.status, message);
+        }
+
+        return data;
+    } catch (error) {
+        if (!(error instanceof ApiError)) {
+            throw new TypeError('NETWORK_ERROR');
+        }
+        throw error;
     }
-
-    return data;
 }
 
 export const taskClient = {
-    getAll() {
-        return request('GET');
-    },
-
-    create(title) {
-        return request('POST', { title });
-    },
-
-    update(id, patch) {
-        return request('PATCH', patch, id);
-    },
-
-    async delete(id) {
-        await request('DELETE', undefined, id);
-        return true;
-    },
+    getAll: () => request('GET'),
+    create: (title) => request('POST', { title }),
+    update: (id, patch) => request('PATCH', patch, id),
+    delete: (id) => request('DELETE', undefined, id)
 };

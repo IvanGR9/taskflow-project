@@ -2,13 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const { performance } = require('node:perf_hooks');
 const { PORT } = require('./config/env');
-const taskRoutes = require('./routes/task.routes'); // Importamos el mapa
+const taskRoutes = require('./routes/task.routes');
 
 const app = express();
 
 // Middlewares (Los porteros)
 app.use(cors());
-app.use(express.json()); // Para que entienda los JSON que enviamos
+app.use(express.json());
 
 // Middleware de Auditoría (Fase C)
 app.use((req, res, next) => {
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// Conectamos las rutas con un nombre profesional (/api/v1/tasks)
+// Conectamos las rutas
 app.use('/api/v1/tasks', taskRoutes);
 
 // Ruta de bienvenida simple
@@ -32,18 +32,20 @@ app.get('/', (req, res) => {
 app.use((err, req, res, next) => {
     console.error(`[Error interno]: ${err.message}`);
 
-    // Mapeo semántico de errores
     if (err.message === 'NOT_FOUND') {
         return res.status(404).json({ error: "El recurso solicitado no existe." });
     }
 
-    // Error genérico 500 para no filtrar detalles técnicos sensibles
     res.status(500).json({ error: "Error interno del servidor" });
 });
 
+// --- ARREGLO DEL PUERTO ---
+// Si PORT es undefined o null, usamos el 3000 por defecto
+const finalPort = PORT || 3000;
+
 if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`✅ Servidor en http://localhost:${PORT}`);
+    app.listen(finalPort, () => {
+        console.log(`✅ Servidor en http://localhost:${finalPort}`);
     });
 }
 

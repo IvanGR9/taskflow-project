@@ -1,10 +1,19 @@
-const API_URL = 'http://localhost:3000/api/v1/tasks';
+const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000/api/v1/tasks' 
+    : 'https://tu-backend-en-vercel.vercel.app/api/v1/tasks';
+
+class ApiError extends Error {
+    constructor(status, message) {
+        super(message);
+        this.name = 'ApiError';
+        this.status = status;
+    }
+}
 
 function taskUrl(id) {
     return id != null ? `${API_URL}/${id}` : API_URL;
 }
 
-/** Intenta leer JSON; si el cuerpo no es JSON (p. ej. HTML de error), devuelve null. */
 async function readJson(response) {
     const text = await response.text();
     if (!text) return null;
@@ -16,9 +25,9 @@ async function readJson(response) {
 }
 
 /**
- * Petición HTTP centralizada. `id` opcional para rutas /tasks/:id
+ * Punto único de red para toda la app.
  * @param {string} method
- * @param {object|undefined} body - Cuerpo JSON (omitir en GET/DELETE)
+ * @param {object|undefined} body
  * @param {string|number|undefined} id
  */
 async function request(method, body, id) {
@@ -27,41 +36,32 @@ async function request(method, body, id) {
         method,
         headers: { 'Content-Type': 'application/json' },
     };
+
     if (body !== undefined && method !== 'GET' && method !== 'DELETE') {
         init.body = JSON.stringify(body);
     }
 
-    let response;
-    try {
-        response = await fetch(url, init);
-    } catch (error) {
-        console.error('Fallo al conectar con el Backend:', error);
-        throw error;
-    }
-
+    const response = await fetch(url, init);
     const data = await readJson(response);
 
     if (!response.ok) {
-        const message =
-            (data && data.error) ||
-            response.statusText ||
-            `Error ${response.status}`;
-        throw new Error(message);
+        const message = (data && data.error) || response.statusText || `Error HTTP ${response.status}`;
+        throw new ApiError(response.status, message);
     }
 
     return data;
 }
 
 export const taskClient = {
-    async getAll() {
+    getAll() {
         return request('GET');
     },
 
-    async create(title) {
+    create(title) {
         return request('POST', { title });
     },
 
-    async update(id, patch) {
+    update(id, patch) {
         return request('PATCH', patch, id);
     },
 

@@ -19,4 +19,4 @@ Swagger sirve para que otros programadores entiendan mi código sin tener que le
 * **Su utilidad:** Crea una página web donde se ven todas las funciones de mi servidor (añadir, borrar, editar) y te permite probarlas ahí mismo. Es como el menú de un restaurante donde ves todo lo que puedes pedir.
 
 ---
-*Nota: He pasado de guardar datos en mi propio ordenador (LocalStorage) a gestionar
+*Nota: He pasado de guardar datos en mi propio ordenador (LocalStorage) a gestionar los datos en un servidor centralizado. Esto permite que la información sea la misma para cualquier usuario que entre en la web, marcando la diferencia entre una web estática y una aplicación web profesional.

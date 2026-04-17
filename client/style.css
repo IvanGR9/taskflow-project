@@ -19,6 +19,57 @@
     display: none;
 }
 
+.loading-state,
+.error-state {
+    list-style: none;
+    margin-top: 0.5rem;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    border: 1px solid #e5e7eb;
+    background: #f8fafc;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.loading-state__spinner {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 9999px;
+    border: 2px solid #e2e8f0;
+    border-top-color: #ff5945;
+    animation: app-spin 0.8s linear infinite;
+}
+
+.error-state {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    border-color: #fecaca;
+    background: #fff1f2;
+    color: #9f1239;
+}
+
+.error-state__title {
+    font-weight: 700;
+}
+
+.error-state__message {
+    font-size: 0.95rem;
+}
+
+.error-state__retry {
+    background: #ff5945;
+    color: #fff;
+    border: none;
+    border-radius: 9999px;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 .app-loader {
     position: fixed;
     inset: 0;
@@ -224,7 +275,7 @@ ul li::before {
     transform: translateY(-50%);
 }
 
-#list-container li.checked::before {
+#task-list li.checked::before {
     background-image: url('./images/checked.png') !important;
     background-repeat: no-repeat;
     background-position: center center;

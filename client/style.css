@@ -70,6 +70,37 @@
     cursor: pointer;
 }
 
+.empty-state {
+    list-style: none;
+    margin-top: 0.5rem;
+    border-radius: 0.9rem;
+    padding: 1.4rem 1rem;
+    border: 1px dashed #cbd5e1;
+    background: #f8fafc;
+    color: #64748b;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.empty-state__icon {
+    font-size: 1.8rem;
+    line-height: 1;
+    animation: empty-float 1.8s ease-in-out infinite;
+}
+
+.empty-state__text {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+@keyframes empty-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
 .app-loader {
     position: fixed;
     inset: 0;

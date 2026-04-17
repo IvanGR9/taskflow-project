@@ -58,6 +58,16 @@ function renderErrorState(message, onRetry) {
     });
 }
 
+function renderEmptyState() {
+    if (!taskList) return;
+    taskList.innerHTML = `
+        <li class="empty-state">
+            <div class="empty-state__icon" aria-hidden="true">✨</div>
+            <p class="empty-state__text">¡Todo listo! No tienes tareas pendientes.</p>
+        </li>
+    `;
+}
+
 function setUiState(nextState) {
     uiState = nextState;
 }
@@ -102,6 +112,13 @@ async function refreshTasks() {
 }
 
 function renderView() {
+    if (tasks.length === 0) {
+        renderEmptyState();
+        updateStats(tasks, { totalTasks, completedTasks, pendingTasks });
+        updateFilterVisuals(filterStateToActiveButtonId());
+        return;
+    }
+
     renderTaskList({
         tasks,
         currentFilter,

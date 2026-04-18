@@ -164,7 +164,10 @@ function loadTasks() {
 function addTask() {
     const trimmedText = inputBox?.value.trim() || '';
     if (trimmedText.length < 3) {
-        renderErrorState('La tarea debe tener al menos 3 caracteres.', () => void addTask());
+        renderErrorState('La tarea debe tener al menos 3 caracteres.', () => {
+            renderView();
+            inputBox?.focus();
+        });
         setUiState('error');
         return;
     }
@@ -239,11 +242,12 @@ function clearAll() {
     });
 }
 
+// FIX: unificado a body.dark-mode para que coincida con style.css
 function toggleTheme() {
-    document.documentElement.classList.toggle('dark');
+    document.body.classList.toggle('dark-mode');
     const btn = document.getElementById('theme-toggle');
     if (btn) {
-        btn.innerHTML = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+        btn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
     }
 }
 

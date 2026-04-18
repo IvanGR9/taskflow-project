@@ -10,8 +10,9 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // FIX: Tailwind escucha body.dark-mode para sincronizarse con style.css
         tailwind.config = {
-          darkMode: 'class',
+          darkMode: ['class', '.dark-mode'],
         }
     </script>
 </head>

@@ -1,4 +1,7 @@
-const API_URL = 'http://localhost:3000/api/v1/tasks';
+// CORRECTO
+const API_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+    ? 'http://localhost:3000/api/v1/tasks'
+    : '/api/v1/tasks';
 
 class ApiError extends Error {
     constructor(status, message) {
